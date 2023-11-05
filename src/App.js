@@ -83,8 +83,8 @@ const App = () => {
   };
 
   return (
-    <div className="bg-indigo-100 ">
-      <div className="max-w-[1280px] m-auto bg-white h-full w-full mb-10 border border-gray-100 rounded-lg shadow-sm">
+    <div className="bg-indigo-100 h-[100%] w-full py-14 md:px-10">
+      <div className="max-w-[1280px] m-auto bg-white h-full w-full mb-10 border border-gray-100 rounded-lg shadow-md">
         <div className="md:py-4 md:px-10">
           {selectedItems.length === 0 ? (
             <h2>Gallery</h2>
@@ -105,91 +105,99 @@ const App = () => {
           )}
         </div>
         <hr />
-        <div className="md:py-4 md:px-10">
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="id" direction={isMobile ? "vertical" : "horizontal"}>
-            {(provided, snapshot) => (
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                className="grid md:grid-cols-5 gap-2">
-                {cardData.map((card, index) => (
-                  <Draggable
-                    draggableId={card.id.toString()}
-                    index={index}
-                    key={card.id}
-                    isDragDisabled={index === cardData.length - 1}>
-                    {(provided, snapshot) => (
-                      <div
-                        key={card.id}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className={`w-full  flex rounded-lg border-2 border-gray-300 cursor-pointer hover:bg-black/[0.3] ${
-                          index === 0
-                            ? "md:col-span-2 md:row-span-2 h-full bg-indigo-50"
-                            : "md:col-span-1 md:row-span-1 h-full w-full"
-                        } ${
-                          index === cardData.length - 1
-                            ? "bg-green-50 cursor-not-allowed"
-                            : "bg-indigo-50"
-                        }`}
-                        onClick={
-                          index === cardData.length - 1 ? handleCardClick : null
-                        }
-                        onMouseEnter={() => handleItemHover(card.id)}
-                        onMouseLeave={handleItemLeave}>
-                          
-                        {hoveredItem === card.id || selectedItems.includes(card.id) ? (
-                          <div className=" inset-0 bg-black/[0.3] opacity-70 group-hover:opacity-100 transition-opacity flex justify-center items-center">
-                            <img
-                              src={card.image}
-                              alt=""
-                              className="rounded-lg"
-                            />
-                          </div>
-                        ) : (
-                          <div className="hover:bg-black/[0.3]">
-                            <img
-                              src={card.image}
-                              alt=""
-                              className="rounded-lg"
-                            />
-                          </div>
-                        )}
+        
+        <div className="md:py-8 md:px-10">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable
+              droppableId="id"
+              direction={isMobile ? "vertical" : "horizontal"}>
+              {(provided, snapshot) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="grid md:grid-cols-5 gap-6"
+                  >
 
-                        {index === cardData.length - 1 ? (
-                          <div className="items-center justify-center text-center">
-                            <input
-                              ref={fileInputRef}
-                              type="file"
-                              style={{ display: "none" }}
-                            />
-                          </div>
-                        ) : (
-                          <>
-                            {hoveredItem === card.id ||
-                            selectedItems.includes(card.id) ? (
-                              <div className="absolute p-2">
-                                <input
-                                  type="checkbox"
-                                  className="w-5 h-5 z-100 top-2 left-2 text-blue-600  border-gray-300 rounded focus:ring-blue-500"
-                                  onChange={() => handleItemSelect(card.id)}
-                                  checked={selectedItems.includes(card.id)}
-                                />
-                              </div>
-                            ) : null}
-                          </>
-                        )}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+                  {cardData.map((card, index) => (
+                    <Draggable
+                      draggableId={card.id.toString()}
+                      index={index}
+                      key={card.id}
+                      isDragDisabled={index === cardData.length - 1}
+                      >
+
+                      {(provided, snapshot) => (
+                        <div
+                          key={card.id}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className={`w-full  flex rounded-lg border-2 border-gray-300 cursor-pointer hover:bg-black/[0.3] ${
+                            index === 0
+                              ? "md:col-span-2 md:row-span-2 h-full bg-indigo-50"
+                              : "md:col-span-1 md:row-span-1 h-full w-full"
+                          } ${
+                            index === cardData.length - 1
+                              ? "bg-indigo-50 cursor-not-allowed border border-dashed "
+                              : "bg-indigo-50"
+                          }`}
+                          onClick={
+                            index === cardData.length - 1? handleCardClick: null
+                          }
+                          onMouseEnter={() => handleItemHover(card.id)}
+                          onMouseLeave={handleItemLeave}
+                          >
+
+                          {hoveredItem === card.id || selectedItems.includes(card.id) ? (
+                            <div className=" inset-0 bg-black/[0.3] opacity-70 group-hover:opacity-100 transition-opacity flex justify-center items-center">
+                              <img
+                                src={card.image}
+                                alt=""
+                                className="rounded-lg"
+                              />
+                            </div>
+                          ) : (
+                            <div className="hover:bg-black/[0.3]">
+                              <img
+                                src={card.image}
+                                alt=""
+                                className="rounded-lg"
+                              />
+                            </div>
+                          )}
+
+                          {index === cardData.length - 1 ? (
+                            <div className="items-center justify-center text-center">
+                              <input
+                                ref={fileInputRef}
+                                type="file"
+                                style={{ display: "none" }}
+                              />
+                            </div>
+                          ) : (
+                            <>
+                              {hoveredItem === card.id ||
+                              selectedItems.includes(card.id) ? (
+                                <div className="absolute p-2">
+                                  <input
+                                    type="checkbox"
+                                    className="w-5 h-5 z-100 top-2 left-2 text-blue-600  border-gray-300 rounded focus:ring-blue-500"
+                                    onChange={() => handleItemSelect(card.id)}
+                                    checked={selectedItems.includes(card.id)}
+                                  />
+                                </div>
+                              ) : null}
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
       </div>
     </div>
