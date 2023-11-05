@@ -1,13 +1,88 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+font-family: 'Raleway', sans-serif;
+}
+body{
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+@layer base {
+ 
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold 
+  }
+
+ 
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components{
+  .hover-img {
+    position: relative;
+    z-index: 1;
+    background-color: #ccc;
+    /* @apply relative ; */
+  }
+  hover-img:hover {
+   
+    background-color: #ccc;
+  }
+  .container {
+  display: flex;
+  touch-action: none;
+  width: 100%;
+  height: 100%;
+  margin: 1rem auto;
 }
+
+.dropzone {
+  flex: 1;
+  height: 105vh;
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+}
+
+/* .dropzone.left {
+  margin-right: 10px;
+} */
+
+.grid-item {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.5em;
+}
+
+.grid-item-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  /* background: #ccc; */
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  align-items: center;
+  border-radius: 0.5em;
+  border: 1px solid #ccc;
+  @apply bg-gray-50 
+}
+
+}
+.card-label:hover .custom-checkbox {
+  opacity: 1;
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  display: inline-block;
+}
+
+/* Add your own styling for the custom checkbox here */
